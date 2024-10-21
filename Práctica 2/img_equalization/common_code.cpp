@@ -82,32 +82,32 @@ float fsiv_compute_actual_clipping_histogram_value(const cv::Mat &h, float s)
     CV_Assert(h.type() == CV_32FC1);
     CV_Assert(h.rows == 256 && h.cols == 1);
 
-    size_t n = static_cast<size_t>(h.rows);
-    float CL = s * cv::sum(h)[0] / n;
+    int n = static_cast<int>(h.rows);
+    int CL = s * cv::sum(h)[0] / n;
 
     // TODO: coded the algorithm show in the practical assign description.
-    float top = CL;
-    float bottom = 0.0;
-    float middle = 0.0;
-    float R;
+    int top = CL;
+    int bottom = 0.0;
+    int middle = 0.0;
+    int R;
 
     while ((top - bottom) > 1.0)
     {
         middle = (top + bottom) / 2;
         R = 0.0;
 
-        for (size_t i = 0; i < n; i++)
+        for (int i = 0; i < n; i++)
             if (h.at<float>(i) > middle)
                 R += (h.at<float>(i) - middle);
         
-        if (s > ((CL - middle) * n))
+        if (R > ((CL - middle) * n))
             top = middle;
         else
             bottom = middle;
     }
     //
 
-    return std::floor(bottom);
+    return bottom;
 }
 
 cv::Mat
