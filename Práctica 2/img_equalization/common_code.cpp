@@ -61,6 +61,7 @@ void fsiv_compute_clipped_histogram(cv::Mat &h, float cl)
 
     size_t n = static_cast<size_t>(h.rows);
     float residuo = 0.0;
+    
     for (size_t i = 0; i < n; i++)
     {
         if (h.at<float>(i) > cl)
@@ -87,8 +88,8 @@ float fsiv_compute_actual_clipping_histogram_value(const cv::Mat &h, float s)
 
     // TODO: coded the algorithm show in the practical assign description.
     int top = CL;
-    int bottom = 0.0;
-    int middle = 0.0;
+    int bottom = 0;
+    int middle = 0;
     int R;
 
     while ((top - bottom) > 1.0)
